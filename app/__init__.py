@@ -1,6 +1,6 @@
 from flask import Flask
 from flask_bootstrap import Bootstrap
-from Config import config_options
+from config import config_options
 
 #Initializing Application and Initializing Flask Extensions
 
