@@ -2,13 +2,13 @@
 
 {% block styles %}
     {{ super() }}
-       <link href="https://fonts.googleapis.com/css2?family=Bungee&family=DM+Serif+Text&family=Diplomata+SC&family=Noticia+Text:ital@0;1&family=Rokkitt:wght@500&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="{{url_for('static',filename='css/style.css')}}">
 {% endblock %}
 
 <!-- Content index block -->
 {% block content %}
     <div>
-        <div class="content-wrapper text-center introduction-wrapper">
+        <div class="container col-xl-12 text-center introduction-wrapper">
             <div class="content title-wrapper">
                 <h1 class="title">
                     Sixty-Six-Seconds
@@ -17,11 +17,11 @@
                     <b>66 Seconds</b> to impress someone. First of all, that's way too much time!
                 </h2>
             </div>
-            <h5 class="text-end introduction">
+            <div class="mx-1" id="introduction">
                 First Impressions matter and here at 66S we get it! So instead of putting even more prssure on you,
                 we let you <i>hide</i> behind a screen and shine like the wonderful human you are!
                 And don't worry the sixty six seconds aren't for you, (that's for the readers). 
-            </h5>
+            </div>
         </div>
     </div>
 {% endblock %}
