@@ -1,8 +1,11 @@
 import os
 
+
 class Config:
     """General configuration parent class
     """
+    SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://ngina:sixtysixpassword@localhost/sixtysix'
+    
     @staticmethod
     def init_app(app):
         pass
