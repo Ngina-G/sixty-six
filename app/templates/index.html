@@ -1,4 +1,6 @@
 {% extends 'base.html' %}
+{% import "bootstrap/wtf.html" as wtf %}
+{% import 'macros.html' as macro%}
 
 {% block styles %}
     {{ super() }}
@@ -23,6 +25,19 @@
                 we let you <i>hide</i> behind a screen and shine like the wonderful human you are!
                 And don't worry the sixty six seconds aren't for you, (that's for the readers). 
             </div>
+        </div>
+        <div class="container">
+    
+            <div class="col-md-4">
+            </div>
+    
+        </div>
+        <div class="row">
+
+            <h1>Pitches</h1>
+            <hr>
+    
+                {{macro.displayPitches(pitches)}}
         </div>
     </div>
 {% endblock %}

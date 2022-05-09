@@ -1,4 +1,6 @@
 from . import db
+from . import login_manager
+from flask_login import UserMixin
 from werkzeug.security import generate_password_hash,check_password_hash
 
 class Pitch:
@@ -21,11 +23,17 @@ class Pitch:
         Pitch.all_pitches.clear()
 
     @classmethod
-    def get_pitches(cls,category):
+    def search_pitches(cls,category):
 
         for pitch in cls.all_pitches:
             if pitch.category == category:
                 return pitch
+    @classmethod
+    def get_pitches(cls):
+        response = []
+        for pitch in cls.all_pitches:
+            response.append(pitch)
+        return response
 
 class Comment:
     """
@@ -58,7 +66,7 @@ class Comment:
 
         return response
 
-class User(db.Model):
+class User(UserMixin,db.Model):
     """
     User class that will help in creating users
     """
@@ -66,6 +74,7 @@ class User(db.Model):
 
     id = db.Column(db.Integer, primary_key = True)
     username = db.Column(db.String(255))
+    email = db.Column(db.String(255),unique = True,index = True)
     role_id = db.Column(db.Integer,db.ForeignKey('roles.id'))
     pass_secure = db.Column(db.String(255))
 
@@ -82,6 +91,10 @@ class User(db.Model):
 
     def __repr__(self):
         return f'User {self.username}'
+
+@login_manager.user_loader
+def load_user(user_id):
+    return User.query.get(int(user_id))
 
 class Role(db.Model):
     __tablename__ = 'roles'
