@@ -1,7 +1,7 @@
-from flask import render_template
+from flask import render_template, redirect,url_for
 from flask_login import login_required
 from . import main
-from ..requests import get_pitch
+from ..requests import get_pitch, display_all_pitches
 from ..models import Comment, Pitch
 from .forms import PitchForm, CommentForm
 
@@ -12,23 +12,26 @@ def index():
     """
     pitches = Pitch.get_pitches()
     title = 'Home'
-    form = PitchForm()
+    # form = PitchForm()
 
-    if form.validate_on_submit():
-        category = form.category.data
-        pitch = form.pitch.data
-        pitch_author = form.pitch_author.data
+    # if form.validate_on_submit():
+    #     category = form.category.data
+    #     pitch = form.pitch.data
+    #     pitch_author = form.pitch_author.data
 
-        new_pitch = Pitch(id,category,pitch,pitch_author)
-        new_pitch.save_pitch()
+    #     new_pitch = Pitch(id,category,pitch,pitch_author)
+    #     new_pitch.save_pitch()
 
-    return render_template('index.html', title=title, pitches=pitches, pitch_form=form)
+    return render_template('index.html', title=title, pitches=pitches)
 
-@main.route('/',  methods = ['GET','POST'])
+@main.route('/pitch',  methods = ['GET','POST'])
 @login_required
-def new_pitch():
+def pitch():
 
     form = PitchForm()
+    pitch = display_all_pitches(self)
+    title = f'{pitch.category}'
+    comments = Comment.get_comments(pitch.id) 
 
     if form.validate_on_submit():
         category = form.category.data
@@ -39,7 +42,7 @@ def new_pitch():
         new_pitch.save_pitch()
         
 
-    return render_template('index.html', pitch_form=form)
+    return render_template('index.html', pitch_form=form, pitch=pitch, title=title, comments=comments)
 
 @main.route('/pitch/comment/new/<int:id>', methods = ['GET','POST'])
 @login_required
