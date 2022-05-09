@@ -10,3 +10,13 @@ class User(db.Model):
 
     def __repr__(self):
         return f'User {self.username}'
+
+class Comment:
+    """
+    Posts class
+    """
+    def __init__(self,id,title,content,author):
+        self.id = id
+        self.title = title
+        self.content = content
+        self.author = author
