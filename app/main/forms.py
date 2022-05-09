@@ -15,3 +15,7 @@ class CommentForm(FlaskForm):
     content = TextAreaField('Pitch', validators=[InputRequired()])
     author = StringField('Your Name', validators=[InputRequired()])
     submit_comment = SubmitField('Submit')
+
+class UpdateProfile(FlaskForm):
+    bio = TextAreaField('Tell us about you.',validators = [Required()])
+    submit = SubmitField('Submit')
