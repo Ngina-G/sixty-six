@@ -4,7 +4,8 @@ import os
 class Config:
     """General configuration parent class
     """
-    SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://ngina:sixtysixpassword@localhost/sixtysix'
+    SECRET_KEY = os.environ.get('SECRET_KEY')
+    SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://postgres:passuser@localhost:5432/sixtysix'
     
     @staticmethod
     def init_app(app):
