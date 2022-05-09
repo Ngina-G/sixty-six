@@ -1,6 +1,63 @@
 from . import db
 from werkzeug.security import generate_password_hash,check_password_hash
 
+class Pitch:
+    """
+        Pitch class
+    """
+    all_pitches = []
+
+    def __init__(self,id,category,pitch,pitch_author):
+        self.id = id
+        self.category = category
+        self.pitch = pitch
+        self.pitch_author = pitch_author
+
+    def save_pitch(self):
+        Pitch.all_pitches.append(self)
+
+    @classmethod
+    def clear_pitch(cls):
+        Pitch.all_pitches.clear()
+
+    @classmethod
+    def get_pitches(cls,category):
+
+        for pitch in cls.all_pitches:
+            if pitch.category == category:
+                return pitch
+
+class Comment:
+    """
+        Comments class
+    """
+    all_comments = []
+
+    def __init__(self,pitch_id,content,author):
+        self.pitch_id = pitch_id
+        self.content = content
+        self.author = author
+
+    def save_comment(self):
+        Comment.all_comments.append(self)
+
+
+    @classmethod
+    def clear_comment(cls):
+        Comment.all_comments.clear()
+
+
+    @classmethod
+    def get_comments(cls,id):
+
+        response = []
+
+        for comment in cls.all_comments:
+            if comment.pitch_id == id:
+                response.append(comment)
+
+        return response
+
 class User(db.Model):
     """
     User class that will help in creating users
@@ -35,13 +92,3 @@ class Role(db.Model):
 
     def __repr__(self):
         return f'User {self.name}'
-
-class Comment:
-    """
-    Posts class
-    """
-    def __init__(self,id,title,content,author):
-        self.id = id
-        self.title = title
-        self.content = content
-        self.author = author
