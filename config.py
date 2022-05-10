@@ -5,7 +5,7 @@ class Config:
     """General configuration parent class
     """
     SECRET_KEY = os.environ.get('SECRET_KEY')
-    SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://postgres:passuser@localhost:5432/sixtysix'
+    # SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://postgres:passuser@localhost:5432/sixtysix'
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     UPLOADED_PHOTOS_DEST ='app/static/photos'
 
@@ -28,15 +28,26 @@ class ProdConfig(Config):
     """
     pass
 
+class Testconfig(Config):
+    """Test configuration child class
+
+    Args:
+        Config (The parent configuration class): with General test configuration settings
+    """
+    SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://postgres:passuser@localhost:5432/sixtysix_test'
+
+
 class DevConfig(Config):
     """Devlopment configuration child class
 
     Args:
         Config (the parent configuration class): with General configuration settngs
     """
+    SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://postgres:passuser@localhost:5432/sixtysix'
     DEBUG =True
 
 config_options = {
     'development':DevConfig,
-    'production':ProdConfig
+    'production':ProdConfig,
+    'test':Testconfig
 }
