@@ -46,10 +46,6 @@ class Comment(db.Model):
     content = db.Column(db.String)
     author = db.Column(db.String)
     user_id = db.Column(db.Integer, db.ForeignKey("users.id"))
-    # def __init__(self,pitch_id,content,author):
-    #     self.pitch_id = pitch_id
-    #     self.content = content
-    #     self.author = author
 
     def save_comment(self):
         db.session.add(self)
@@ -66,7 +62,7 @@ class Comment(db.Model):
     def get_comments(cls,id):
 
         comments = Comment.query.filter_by(pitch_id=id).all()
-        return reviews
+        return comments
 
 class User(UserMixin,db.Model):
     """
@@ -81,7 +77,7 @@ class User(UserMixin,db.Model):
     bio = db.Column(db.String(255))
     profile_pic_path = db.Column(db.String())
     pass_secure = db.Column(db.String(255))
-    reviews = db.relationship('Review',backref = 'user',lazy = "dynamic")
+    comments = db.relationship('Comment',backref = 'user',lazy = "dynamic")
     @property
     def password(self):
         raise AttributeError('You cannot read the password attribute')

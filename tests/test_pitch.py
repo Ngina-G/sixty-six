@@ -34,5 +34,5 @@ class PitchTest(unittest.TestCase):
         test_pitch= Pitch(1, 'Business', 'Businesses fail all the time', 'John Doe')
         test_pitch.save_pitch()
 
-        got_pitch = Pitch.get_pitches('Business')
+        got_pitch = Pitch.search_pitches('Business')
         self.assertEqual(got_pitch.pitch, test_pitch.pitch)
