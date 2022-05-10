@@ -1,7 +1,7 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, TextAreaField, SubmitField
-from wtforms.validators import ValidationError, InputRequired
-from ..models import Pitch, Comment
+from wtforms import StringField, TextAreaField, SubmitField, ValidationError
+from wtforms.validators import InputRequired, Email
+from ..models import Pitch, Comment, User
 
 class PitchForm(FlaskForm):
 

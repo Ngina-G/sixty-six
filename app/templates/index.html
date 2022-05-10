@@ -11,6 +11,7 @@
 <!-- Content index block -->
 {% block content %}
     <div>
+
         <div class="container col-xl-12 text-center introduction-wrapper">
             <div class="content title-wrapper">
                 <h1 class="title">
@@ -20,6 +21,13 @@
                     <b>66 Seconds</b> to impress someone. First of all, that's way too much time!
                 </h2>
             </div>
+
+            {% if current_user.is_authenticated %}
+                <h4>Hello {{current_user.username}}</h4>
+            {% else %}
+                <h4>Hello stranger</h4>
+            {% endif %}
+            
             <div class="mx-1" id="introduction">
                 First Impressions matter and here at 66S we get it! So instead of putting even more prssure on you,
                 we let you <i>hide</i> behind a screen and shine like the wonderful human you are!

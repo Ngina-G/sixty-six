@@ -64,6 +64,14 @@ class Comment(db.Model):
         comments = Comment.query.filter_by(pitch_id=id).all()
         return comments
 
+class PhotoProfile(db.Model):
+    __tablename__ = 'profile_photos'
+
+    id = db.Column(db.Integer,primary_key = True)
+    pic_path = db.Column(db.String())
+    user_id = db.Column(db.Integer,db.ForeignKey("users.id"))
+
+
 class User(UserMixin,db.Model):
     """
     User class that will help in creating users
@@ -76,7 +84,9 @@ class User(UserMixin,db.Model):
     role_id = db.Column(db.Integer,db.ForeignKey('roles.id'))
     bio = db.Column(db.String(255))
     profile_pic_path = db.Column(db.String())
-    pass_secure = db.Column(db.String(255))
+
+    password_hash = db.Column(db.String(255))
+    photos = db.relationship('PhotoProfile',backref = 'user',lazy = "dynamic")
     comments = db.relationship('Comment',backref = 'user',lazy = "dynamic")
     @property
     def password(self):
@@ -84,17 +94,13 @@ class User(UserMixin,db.Model):
 
     @password.setter
     def password(self, password):
-        self.pass_secure = generate_password_hash(password)
+        self.password_hash = generate_password_hash(password)
 
     def verify_password(self, password):
-        return check_password_hash(self.pass_secure, password)
+        return check_password_hash(self.password_hash, password)
 
     def __repr__(self):
         return f'User {self.username}'
-
-@login_manager.user_loader
-def load_user(user_id):
-    return User.query.get(int(user_id))
 
 class Role(db.Model):
     __tablename__ = 'roles'
