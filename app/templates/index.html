@@ -27,7 +27,7 @@
             {% else %}
                 <h4>Hello stranger</h4>
             {% endif %}
-            
+
             <div class="mx-1" id="introduction">
                 First Impressions matter and here at 66S we get it! So instead of putting even more prssure on you,
                 we let you <i>hide</i> behind a screen and shine like the wonderful human you are!
@@ -37,6 +37,23 @@
         <div class="container">
     
             <div class="col-md-4">
+                <form action="" method="post">
+                    {{pitch_form.hidden_tag()}}
+                  
+                    <div class="form-group m-5">
+                        {{pitch_form.category.label()}}
+                       {{pitch_form.category(class="form-control")}}
+                    </div>
+                    <div class="form-group m-5">
+                        {{pitch_form.pitch.label()}}
+                        {{pitch_form.pitch(class="form-control")}}
+                    </div >
+                    <div class="form-group m-5">
+                        {{pitch_form.pitch_author.label()}}
+                        {{pitch_form.pitch_author(class="form-control")}}
+                    </div>
+                    {{pitch_form.submit_pitch(class="btn-lg btn-primary m-5")}}
+                 </form>
             </div>
     
         </div>
@@ -44,7 +61,6 @@
 
             <h1>Pitches</h1>
             <hr>
-    
                 {{macro.displayPitches(pitches)}}
         </div>
     </div>
