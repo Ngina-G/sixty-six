@@ -4,7 +4,7 @@ import os
 class Config:
     """General configuration parent class
     """
-    SECRET_KEY = os.environ.get('SECRET_KEY')
+    # SECRET_KEY = os.environ.get('SECRET_KEY')
     # SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://postgres:passuser@localhost:5432/sixtysix'
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     UPLOADED_PHOTOS_DEST ='app/static/photos'
@@ -44,6 +44,9 @@ class DevConfig(Config):
         Config (the parent configuration class): with General configuration settngs
     """
     SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://postgres:passuser@localhost:5432/sixtysix'
+    SECRET_KEY = os.urandom(32)
+    WTF_CSRF_SECRET_KEY="a csrf secret key" 
+    
     DEBUG =True
 
 config_options = {

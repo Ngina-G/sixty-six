@@ -47,6 +47,11 @@ class Comment(db.Model):
     author = db.Column(db.String)
     user_id = db.Column(db.Integer, db.ForeignKey("users.id"))
 
+    def create(self):
+       db.session.add(self)
+       db.session.commit()
+       return self
+
     def save_comment(self):
         db.session.add(self)
         db.session.commit()
@@ -63,6 +68,7 @@ class Comment(db.Model):
 
         comments = Comment.query.filter_by(pitch_id=id).all()
         return comments
+db.create_all()
 
 class PhotoProfile(db.Model):
     __tablename__ = 'profile_photos'
@@ -71,6 +77,9 @@ class PhotoProfile(db.Model):
     pic_path = db.Column(db.String())
     user_id = db.Column(db.Integer,db.ForeignKey("users.id"))
 
+@login_manager.user_loader
+def load_user(user):
+    return User.query.filter_by(user_id =id).first()
 
 class User(UserMixin,db.Model):
     """
@@ -102,6 +111,9 @@ class User(UserMixin,db.Model):
     def __repr__(self):
         return f'User {self.username}'
 
+    
+db.create_all()
+
 class Role(db.Model):
     __tablename__ = 'roles'
 
@@ -111,3 +123,5 @@ class Role(db.Model):
 
     def __repr__(self):
         return f'User {self.name}'
+
+db.create_all()
