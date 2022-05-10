@@ -1,6 +1,6 @@
-{% macro displayPitches(all_pitches) %}
+{% macro displayPitches(pitches) %}
 
-    {% for pitch in all_pitches %}
+    {% for pitch in pitches %}
     <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 review-card">
         <h2>{{pitch.category}}</h2>
         <p>{{pitch.pitch | truncate(30)}}</p>

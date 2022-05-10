@@ -68,7 +68,6 @@ class Comment(db.Model):
 
         comments = Comment.query.filter_by(pitch_id=id).all()
         return comments
-db.create_all()
 
 class PhotoProfile(db.Model):
     __tablename__ = 'profile_photos'
@@ -112,7 +111,6 @@ class User(UserMixin,db.Model):
         return f'User {self.username}'
 
     
-db.create_all()
 
 class Role(db.Model):
     __tablename__ = 'roles'
@@ -124,4 +122,3 @@ class Role(db.Model):
     def __repr__(self):
         return f'User {self.name}'
 
-db.create_all()
