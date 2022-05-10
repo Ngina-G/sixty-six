@@ -31,7 +31,6 @@ def pitch():
 
     form = PitchForm()
     pitch = display_all_pitches(self)
-    title = f'{pitch.category}'
     comments = Comment.get_comments(pitch.id) 
 
     if form.validate_on_submit():
