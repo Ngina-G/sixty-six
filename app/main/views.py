@@ -1,5 +1,5 @@
 from flask import render_template, redirect,url_for, abort
-from flask_login import login_required
+from flask_login import login_required, current_user
 from . import main
 from ..requests import get_pitch, display_all_pitches
 from ..models import Comment, Pitch, User
@@ -56,7 +56,9 @@ def new_comment(id):
         content = form.content.data
         author = form.author.data
 
-        new_comment = Comment(pitch_id, content, author)
+        #update comments instance
+        new_comment = Comment(pitch_id=pitch.id, content=content, author=author, user=current_user)
+        # save review method
         new_comment.save_comment()
 
         return redirect(url_for('.pitch', id = pitch.id))

@@ -35,36 +35,38 @@ class Pitch:
             response.append(pitch)
         return response
 
-class Comment:
+class Comment(db.Model):
     """
         Comments class
     """
-    all_comments = []
+    __tablename__='comments'
 
-    def __init__(self,pitch_id,content,author):
-        self.pitch_id = pitch_id
-        self.content = content
-        self.author = author
+    id = db.Column(db.Integer, primary_key = True)
+    pitch_id = db.Column(db.Integer)
+    content = db.Column(db.String)
+    author = db.Column(db.String)
+    user_id = db.Column(db.Integer, db.ForeignKey("users.id"))
+    # def __init__(self,pitch_id,content,author):
+    #     self.pitch_id = pitch_id
+    #     self.content = content
+    #     self.author = author
 
     def save_comment(self):
-        Comment.all_comments.append(self)
+        db.session.add(self)
+        db.session.commit()
 
 
     @classmethod
     def clear_comment(cls):
-        Comment.all_comments.clear()
+        db.session.drop(self)
+        db.session.commit()
 
 
     @classmethod
     def get_comments(cls,id):
 
-        response = []
-
-        for comment in cls.all_comments:
-            if comment.pitch_id == id:
-                response.append(comment)
-
-        return response
+        comments = Comment.query.filter_by(pitch_id=id).all()
+        return reviews
 
 class User(UserMixin,db.Model):
     """
@@ -79,7 +81,7 @@ class User(UserMixin,db.Model):
     bio = db.Column(db.String(255))
     profile_pic_path = db.Column(db.String())
     pass_secure = db.Column(db.String(255))
-
+    reviews = db.relationship('Review',backref = 'user',lazy = "dynamic")
     @property
     def password(self):
         raise AttributeError('You cannot read the password attribute')
