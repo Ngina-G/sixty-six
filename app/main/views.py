@@ -17,7 +17,7 @@ from .. import db,photos
 #     return render_template('index.html', title=title, pitches=pitches)
 
 @main.route('/')
-@login_required
+# @login_required
 def index():
 
     form = PitchForm()

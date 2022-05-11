@@ -105,6 +105,7 @@ class User(UserMixin,db.Model):
 
     password_hash = db.Column(db.String(255))
     photos = db.relationship('PhotoProfile',backref = 'user',lazy = "dynamic")
+    pitches = db.relationship('Pitch',backref = 'user',lazy = "dynamic")
     comments = db.relationship('Comment',backref = 'user',lazy = "dynamic")
     @property
     def password(self):
