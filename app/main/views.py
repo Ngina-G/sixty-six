@@ -17,7 +17,7 @@ from .. import db,photos
 #     return render_template('index.html', title=title, pitches=pitches)
 
 @main.route('/')
-# @login_required
+@login_required
 def index():
 
     form = PitchForm()
@@ -34,6 +34,7 @@ def index():
         db.session.commit()
         new_pitch = Pitch(id,category,pitch,pitch_author)
         new_pitch.save_pitch()
+        return pitch
 
         if current_user.is_authenticated:
             pitches = Pitch.query.filter_by(user=current_user.username).all()
@@ -43,7 +44,7 @@ def index():
     # pitches=Pitch.query.order_by(Pitch.posted.desc())
     # top_pitch=Pitch.query.order_by(Pitch.upvotes.desc()).first()  
           
-    return render_template('index.html', pitches=pitches, pitch_form=form)
+    return render_template('index.html', pitches=pitches, pitch_form=form, pitch=pitch)
 
     # form = PitchForm()
     # pitch = display_all_pitches(self)
