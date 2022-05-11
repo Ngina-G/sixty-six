@@ -15,6 +15,8 @@ class Config:
     MAIL_USE_TLS = True
     MAIL_USERNAME = os.environ.get("MAIL_USERNAME")
     MAIL_PASSWORD = os.environ.get("MAIL_PASSWORD")
+
+    SECRET_KEY = os.environ.get("SECRET_KEY")
     
     @staticmethod
     def init_app(app):
@@ -44,7 +46,7 @@ class DevConfig(Config):
         Config (the parent configuration class): with General configuration settngs
     """
     SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://postgres:passuser@localhost:5432/sixtysix'
-    SECRET_KEY = os.urandom(32)
+
     WTF_CSRF_SECRET_KEY="a csrf secret key" 
 
     DEBUG =True

@@ -3,11 +3,18 @@ from . import login_manager
 from flask_login import UserMixin
 from werkzeug.security import generate_password_hash,check_password_hash
 
-class Pitch:
+class Pitch(db.Model):
     """
         Pitch class
     """
-    all_pitches = []
+    __tablename__='pitches'
+
+    id = db.Column(db.Integer, primary_key = True)
+    category = db.Column(db.String)
+    pitch = db.Column(db.String)
+    pitch_author = db.Column(db.String)
+    user_id = db.Column(db.Integer, db.ForeignKey("users.id"))
+
 
     def __init__(self,id,category,pitch,pitch_author):
         self.id = id
@@ -15,25 +22,28 @@ class Pitch:
         self.pitch = pitch
         self.pitch_author = pitch_author
 
+    def create_pitch(self):
+       db.session.add(self)
+       db.session.commit()
+       return self
+
     def save_pitch(self):
-        Pitch.all_pitches.append(self)
+        db.session.add(self)
+        db.session.commit()
 
     @classmethod
     def clear_pitch(cls):
-        Pitch.all_pitches.clear()
+        db.session.drop(self)
+        db.session.commit()
 
     @classmethod
     def search_pitches(cls,category):
+        pitches = Pitch.query.filter_by(category=category).all()
+        return pitches
 
-        for pitch in cls.all_pitches:
-            if pitch.category == category:
-                return pitch
     @classmethod
     def get_pitches(cls):
-        response = []
-        for pitch in cls.all_pitches:
-            response.append(pitch)
-        return response
+        pitches = Pitch.query.all()
 
 class Comment(db.Model):
     """
@@ -47,7 +57,7 @@ class Comment(db.Model):
     author = db.Column(db.String)
     user_id = db.Column(db.Integer, db.ForeignKey("users.id"))
 
-    def create(self):
+    def create_comment(self):
        db.session.add(self)
        db.session.commit()
        return self
@@ -65,9 +75,9 @@ class Comment(db.Model):
 
     @classmethod
     def get_comments(cls,id):
-
         comments = Comment.query.filter_by(pitch_id=id).all()
         return comments
+
 
 class PhotoProfile(db.Model):
     __tablename__ = 'profile_photos'

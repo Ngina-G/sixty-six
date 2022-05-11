@@ -42,6 +42,9 @@ def create_app(config_name):
     mail.init_app(app)
     csrf.init_app(app)
 
+    with app.app_context():
+        db.create_all()
+
     # Registering the blueprint
     from .main import main as main_blueprint
     app.register_blueprint(main_blueprint)

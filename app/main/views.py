@@ -16,12 +16,12 @@ from .. import db,photos
 
 #     return render_template('index.html', title=title, pitches=pitches)
 
-@main.route('/',  methods = ['GET','POST'])
+@main.route('/')
+@login_required
 def index():
 
     form = PitchForm()
-    pitch = display_all_pitches(self)
-    comments = Comment.get_comments(pitch.id) 
+    pitches = Pitch.query.all()
 
     if form.validate_on_submit():
         form = PitchForm()
@@ -32,20 +32,46 @@ def index():
 
         db.session.add(pitch)
         db.session.commit()
-        # new_pitch = Pitch(id,category,pitch,pitch_author)
-        # new_pitch.save_pitch()
+        new_pitch = Pitch(id,category,pitch,pitch_author)
+        new_pitch.save_pitch()
+
         if current_user.is_authenticated:
             pitches = Pitch.query.filter_by(user=current_user.username).all()
         else:
             pitches = []
-    return render_template('index.html', pitch_form=form, pitch=pitch, pitches=pitches,title=title, comments=comments)
+
+    # pitches=Pitch.query.order_by(Pitch.posted.desc())
+    # top_pitch=Pitch.query.order_by(Pitch.upvotes.desc()).first()  
+          
+    return render_template('index.html', pitches=pitches, pitch_form=form)
+
+    # form = PitchForm()
+    # pitch = display_all_pitches(self)
+    # comments = Comment.get_comments(pitch.id) 
+
+    # if form.validate_on_submit():
+    #     form = PitchForm()
+    #     pitch = Pitch(
+    #         category = form.category.data,
+    #         pitch = form.pitch.data,
+    #         pitch_author = form.pitch_author.data)
+
+    #     db.session.add(pitch)
+    #     db.session.commit()
+    #     # new_pitch = Pitch(id,category,pitch,pitch_author)
+    #     # new_pitch.save_pitch()
+    #     if current_user.is_authenticated:
+    #         pitches = Pitch.query.filter_by(user=current_user.username).all()
+    #     else:
+    #         pitches = []
+    # return render_template('index.html')
 
 @main.route('/pitch/comment/new/<int:id>', methods = ['GET','POST'])
 @login_required
 def new_comment(id):
     form = CommentForm()
 
-    pitch = get_pitch(id)
+    pitch = Pitch.query.filter_by(id=id).all()
 
     if form.validate_on_submit():
         content = form.content.data
