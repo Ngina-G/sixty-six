@@ -5,7 +5,7 @@ class Config:
     """General configuration parent class
     """
     # SECRET_KEY = os.environ.get('SECRET_KEY')
-    SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://postgres:passuser@localhost:5432/sixtysix'
+    SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://postgres:Postgres@localhost:5432/sixtysixseconds'
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     UPLOADED_PHOTOS_DEST ='app/static/photos'
 
@@ -36,7 +36,7 @@ class Testconfig(Config):
     Args:
         Config (The parent configuration class): with General test configuration settings
     """
-    SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://postgres:passuser@localhost:5432/sixtysix_test'
+    SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://postgres:Postgres@localhost:5432/sixtysixseconds_test'
 
 
 class DevConfig(Config):
@@ -45,7 +45,7 @@ class DevConfig(Config):
     Args:
         Config (the parent configuration class): with General configuration settngs
     """
-    SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://postgres:passuser@localhost:5432/sixtysix'
+    SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://postgres:Postgres@localhost:5432/sixtysixseconds'
 
     WTF_CSRF_SECRET_KEY="a csrf secret key" 
 
