@@ -18,27 +18,6 @@ def index():
     # top_pitch=Pitch.query.order_by(Pitch.upvotes.desc()).first()  
     return render_template('index.html', pitches=pitches, pitch_form=form)
 
-    # form = PitchForm()
-    # pitch = display_all_pitches(self)
-    # comments = Comment.get_comments(pitch.id) 
-
-    # if form.validate_on_submit():
-    #     form = PitchForm()
-    #     pitch = Pitch(
-    #         category = form.category.data,
-    #         pitch = form.pitch.data,
-    #         pitch_author = form.pitch_author.data)
-
-    #     db.session.add(pitch)
-    #     db.session.commit()
-    #     # new_pitch = Pitch(id,category,pitch,pitch_author)
-    #     # new_pitch.save_pitch()
-    #     if current_user.is_authenticated:
-    #         pitches = Pitch.query.filter_by(user=current_user.username).all()
-    #     else:
-    #         pitches = []
-    # return render_template('index.html')
-
 @main.route('/pitch', methods = ['POST','GET'])
 @login_required
 def pitch():
@@ -65,26 +44,6 @@ def pitch():
     return render_template( 'pitch.html',pitch_form=form)
 
 
-# @main.route('/pitch/comment/new/<int:id>', methods = ['GET','POST'])
-# @login_required
-# def new_comment(id):
-#     form = CommentForm()
-
-#     pitch = Pitch.query.filter_by(id=id).all()
-
-#     if form.validate_on_submit():
-#         content = form.content.data
-#         author = form.author.data
-
-#         #update comments instance
-#         new_comment = Comment(pitch_id=pitch.id, content=content, author=author, user=current_user)
-#         # save review method
-#         new_comment.save_comment()
-
-#         return redirect(url_for('.pitch', id = pitch.id))
-
-#     title = f'{pitch.pitch}'
-#     return render_template('comment.html', title=title, comment_form=form, pitch=pitch)
 
 @main.route('/user/<uname>')
 def profile(uname):

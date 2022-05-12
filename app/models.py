@@ -16,24 +16,24 @@ class User(UserMixin,db.Model):
     id = db.Column(db.Integer, primary_key = True)
     username = db.Column(db.String(255))
     email = db.Column(db.String(255),unique = True,index = True)
-    role_id = db.Column(db.Integer,db.ForeignKey('roles.id'))
     bio = db.Column(db.String(255))
-    profile_pic_path = db.Column(db.String())
-
+    profile_pic_path = db.Column(db.String(255))
+    pass_secure = db.Column(db.String(255))
     password_hash = db.Column(db.String(255))
     photos = db.relationship('PhotoProfile',backref = 'user',lazy = "dynamic")
     pitches = db.relationship('Pitch',backref = 'user',lazy = "dynamic")
     comments = db.relationship('Comment',backref = 'user',lazy = "dynamic")
+    vote = db.relationship('Vote',backref = 'user', lazy = "dynamic")
     @property
     def password(self):
         raise AttributeError('You cannot read the password attribute')
 
     @password.setter
     def password(self, password):
-        self.password_hash = generate_password_hash(password)
+        self.pass_secure = generate_password_hash(password)
 
     def verify_password(self, password):
-        return check_password_hash(self.password_hash, password)
+        return check_password_hash(self.pass_secure, password)
 
     def __repr__(self):
         return f'User {self.username}'
@@ -51,6 +51,9 @@ class Pitch(db.Model):
     pitch = db.Column(db.String)
     pitch_author = db.Column(db.String)
     user_id = db.Column(db.Integer, db.ForeignKey("users.id"))
+    comments = db.relationship('Comment',backref = 'user',lazy = "dynamic")
+    vote = db.relationship('Vote',backref='pitches', lazy='dynamic')
+    
 
 
     # def __init__(self,id,category,pitch,pitch_author):
@@ -89,7 +92,6 @@ class Comment(db.Model):
     __tablename__='comments'
 
     id = db.Column(db.Integer, primary_key = True)
-    pitch_id = db.Column(db.Integer)
     content = db.Column(db.String)
     author = db.Column(db.String)
     user_id = db.Column(db.Integer, db.ForeignKey("users.id"))
@@ -115,37 +117,21 @@ class PhotoProfile(db.Model):
     user_id = db.Column(db.Integer,db.ForeignKey("users.id"))
     
 
-class Upvote(db.Model):
-    __tablename__='upvotes'
+class Vote(db.Model):
+    __tablename__='votes'
 
     id = db.Column(db.Integer,primary_key = True)
+    vote = db.Column(db.Integer)
     user_id = db.Column(db.Integer,db.ForeignKey("users.id"))
     pitch_id = db.Column(db.Integer,db.ForeignKey("pitches.id"))
 
     @classmethod
-    def get_upvotes(cls,upvotes_id):
-        upvote = Upvote.query.filter_by(pitch_id=upvotes_id).all()
-        return upvote
+    def get_votes(cls,user_id,pitches_id):
+        votes = Vote.query.filter_by(pitch_id=pitch_id).all()
+        return votes
 
     def __repr__(self):
-        return f'{self.user_id}:{self.pitch_id}'
-
-
-class Downvote(db.Model):
-    __tablename__='downvotes'
-
-    id = db.Column(db.Integer,primary_key = True)
-    user_id = db.Column(db.Integer,db.ForeignKey("users.id"))
-    pitch_id = db.Column(db.Integer,db.ForeignKey("pitches.id"))
-
-    @classmethod
-    def get_downvotes(cls,downvotes_id):
-        downvote = Downvote.query.filter_by(pitch_id=downvotes_id).all()
-        return downvote
-
-    def __repr__(self):
-        return f'{self.user_id}:{self.pitch_id}'
-
+        return f'{self.vote}:{self.user_id}:{self.pitch_id}'
 
 
 class Role(db.Model):
