@@ -43,18 +43,21 @@ def index():
 @login_required
 def pitch():
     form = PitchForm()
+    user = User.query.all()
 
     if form.validate_on_submit():
+        user = User.query.all()
+
         form = PitchForm()
         category = form.category.data,
         pitch = form.pitch.data,
         pitch_author = form.pitch_author.data
-        # user_id = users.id
-        new_pitch = Pitch(id,category=category,pitch=pitch,pitch_author=pitch_author)
+        user_id = current_user._get_current_object().id
+        new_pitch = Pitch(category=category,pitch=pitch,pitch_author=pitch_author,user_id=user_id)
         new_pitch.save_pitch()
         
 
-        db.session.add(pitch)
+        db.session.add(new_pitch)
         db.session.commit()
         return redirect(url_for('main.index'))
 

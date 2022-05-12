@@ -93,20 +93,11 @@ class Comment(db.Model):
     content = db.Column(db.String)
     author = db.Column(db.String)
     user_id = db.Column(db.Integer, db.ForeignKey("users.id"))
+    pitch_id = db.Column(db.Integer,db.ForeignKey("pitches.id"))
 
-    def create_comment(self):
-       db.session.add(self)
-       db.session.commit()
-       return self
 
     def save_comment(self):
         db.session.add(self)
-        db.session.commit()
-
-
-    @classmethod
-    def clear_comment(cls):
-        db.session.drop(self)
         db.session.commit()
 
 
@@ -123,6 +114,39 @@ class PhotoProfile(db.Model):
     pic_path = db.Column(db.String())
     user_id = db.Column(db.Integer,db.ForeignKey("users.id"))
     
+
+class Upvote(db.Model):
+    __tablename__='upvotes'
+
+    id = db.Column(db.Integer,primary_key = True)
+    user_id = db.Column(db.Integer,db.ForeignKey("users.id"))
+    pitch_id = db.Column(db.Integer,db.ForeignKey("pitches.id"))
+
+    @classmethod
+    def get_upvotes(cls,upvotes_id):
+        upvote = Upvote.query.filter_by(pitch_id=upvotes_id).all()
+        return upvote
+
+    def __repr__(self):
+        return f'{self.user_id}:{self.pitch_id}'
+
+
+class Downvote(db.Model):
+    __tablename__='downvotes'
+
+    id = db.Column(db.Integer,primary_key = True)
+    user_id = db.Column(db.Integer,db.ForeignKey("users.id"))
+    pitch_id = db.Column(db.Integer,db.ForeignKey("pitches.id"))
+
+    @classmethod
+    def get_downvotes(cls,downvotes_id):
+        downvote = Downvote.query.filter_by(pitch_id=downvotes_id).all()
+        return downvote
+
+    def __repr__(self):
+        return f'{self.user_id}:{self.pitch_id}'
+
+
 
 class Role(db.Model):
     __tablename__ = 'roles'
