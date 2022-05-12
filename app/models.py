@@ -53,11 +53,11 @@ class Pitch(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey("users.id"))
 
 
-    def __init__(self,id,category,pitch,pitch_author):
-        self.id = id
-        self.category = category
-        self.pitch = pitch
-        self.pitch_author = pitch_author
+    # def __init__(self,id,category,pitch,pitch_author):
+    #     self.id = id
+    #     self.category = category
+    #     self.pitch = pitch
+    #     self.pitch_author = pitch_author
 
     def create_pitch(self):
        db.session.add(self)

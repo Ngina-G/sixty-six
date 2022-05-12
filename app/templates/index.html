@@ -35,8 +35,15 @@
             </div>
         </div>
         <div class="container">
+            <div class="row">
+
+                <h1>Pitches</h1>
+                <hr>
+                    <button><a href="{{url_for('main.pitch')}}">Add your own pitch</a></button>
+                    {{macro.displayPitches(pitches)}}
+            </div>
     
-            <div class="col-md-4">
+            <!-- <div class="col-md-4">
                 <form action="" method="post">
                     {{pitch_form.hidden_tag()}}
                   
@@ -54,14 +61,9 @@
                     </div>
                     {{pitch_form.submit_pitch(class="btn-lg btn-primary m-5")}}
                  </form>
-            </div>
+            </div> -->
     
         </div>
-        <div class="row">
 
-            <h1>Pitches</h1>
-            <hr>
-                {{macro.displayPitches(pitches)}}
-        </div>
-    </div>
+    <!-- </div> -->
 {% endblock %}
