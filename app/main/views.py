@@ -2,7 +2,7 @@ from flask import render_template, redirect,url_for, abort
 from flask_login import login_required, current_user
 from . import main
 from ..requests import get_pitch, display_all_pitches
-from ..models import Comment, Pitch, User, PhotoProfile
+from ..models import Comment, Pitch, User, PhotoProfile, Vote
 from .forms import PitchForm, CommentForm, UpdateProfile
 from .. import db,photos
 
@@ -32,7 +32,8 @@ def pitch():
         pitch = form.pitch.data,
         pitch_author = form.pitch_author.data
         user_id = current_user._get_current_object().id
-        new_pitch = Pitch(category=category,pitch=pitch,pitch_author=pitch_author,user_id=user_id)
+        votes = Vote.query.filter_by(pitch_id=id).all()
+        new_pitch = Pitch(category=category,pitch=pitch,pitch_author=pitch_author,user_id=user.id, votes =votes)
         new_pitch.save_pitch()
         
 
@@ -43,7 +44,19 @@ def pitch():
         
     return render_template( 'pitch.html',pitch_form=form)
 
+# @main.route('/comment/<int:id>', methods = ['GET','POST'])
+# @login_required
+# def comment(id):
+    
+#     form = CommentForm()
+#     pitch = Pitch.query.filter_by(id=id).first()
 
+#     if pitches is None:
+#         abort(404)
+
+#     if form.validate_on_submit():
+#         content = form.content.data
+#         new_comment = Comment(content=content, author=author,pitch_id=pitch.id, user_id=current_user.id)
 
 @main.route('/user/<uname>')
 def profile(uname):

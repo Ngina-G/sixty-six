@@ -51,7 +51,7 @@ class Pitch(db.Model):
     pitch = db.Column(db.String)
     pitch_author = db.Column(db.String)
     user_id = db.Column(db.Integer, db.ForeignKey("users.id"))
-    comments = db.relationship('Comment',backref = 'user',lazy = "dynamic")
+    comments = db.relationship('Comment',backref = 'pitches',lazy = "dynamic")
     vote = db.relationship('Vote',backref='pitches', lazy='dynamic')
     
 
@@ -139,7 +139,7 @@ class Role(db.Model):
 
     id = db.Column(db.Integer,primary_key = True)
     name = db.Column(db.String(255))
-    users = db.relationship('User',backref = 'role',lazy="dynamic")
+    # users = db.relationship('User',backref = 'role',lazy="dynamic")
 
     def __repr__(self):
         return f'User {self.name}'
