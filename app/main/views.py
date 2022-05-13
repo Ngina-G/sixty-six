@@ -32,8 +32,8 @@ def pitch():
         pitch = form.pitch.data,
         pitch_author = form.pitch_author.data
         user_id = current_user._get_current_object().id
-        votes = Vote.query.filter_by(pitch_id=id).all()
-        new_pitch = Pitch(category=category,pitch=pitch,pitch_author=pitch_author,user_id=user.id, votes =votes)
+        # votes = Vote.query.filter_by(pitch_id=id).all()
+        new_pitch = Pitch(category=category,pitch=pitch,pitch_author=pitch_author,user_id=user_id)
         new_pitch.save_pitch()
         
 
