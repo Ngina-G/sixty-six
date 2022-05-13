@@ -6,57 +6,14 @@
 
         <div class="col-md-8">
 
-            <img src="{{pitch.pitch}}" alt="{{pitch.pitch_author}}" class="img-responsive">
+            <h4>{{pitch.pitch}}></h4>
         </div>
 
         <div class="col-md-4">
-            <form action="" method="post">
-                {{comment_form.hidden_tag}}
 
-                <div class="form-group m-5">
-                    {{comment_form.comment.label()}}
-                    {{comment_form.comment(class="form-control")}}
-                </div>
-                <div class="form-group m-5">
-                    {{comment_form.author.label()}}
-                    {{comment_form.author(class="form-control")}}
-                </div>
-                {{comment_form.submit(class="btn-lg btn-primary m-5")}}
-                </div>
-            </form>
+            {{ wtf.quick_form(comment_form) }}
         </div>
 
     </div>
 
 {% endblock %}
-        <!-- <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 pitch-details">
-            <h3>{{ pitch.category }}</h3>
-
-            <p class="content"> {{ pitch.pitch }}</p>
-
-            <p class="ratings"> <b> {{ pitch.up_vote}}</b> - <i>{{ pitch.down_vote}} votes </i> </p>
-            <a class="ratings" href="/pitch/comment/new/{{pitch.id}}"> Write a new comment</a>
-
-
-        </div>
-
-
-    </div>
-    
-    <div class="row">
-
-        <h1>Comments</h1>
-        <hr>
-
-        {% if comments %}
-            {{macro.displayComments(comments)}}
-
-        {% else%}
-            <h3 class="text-center">This pitch has no Comments </h3>
-
-            <a class="btn btn-success btn-lg text-center" href="/pitch/comment/new/{{pitch.id}}"> Write a new comment</a>
-        {% endif %}
-
-    </div>
-
-</div> -->

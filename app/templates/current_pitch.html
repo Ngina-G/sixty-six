@@ -1,0 +1,35 @@
+{% extends 'base.html'%}
+{% import "bootstrap/wtf.html" as wtf %}
+
+{% block content %}
+    <div class="container">
+        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 pitch-details">
+            <h3>{{ pitch.pitch }}</h3>
+
+            <!-- <p class="ratings"> <b> {{ pitch.up_vote}}</b> - <i>{{ pitch.down_vote}} votes </i> </p> -->
+            <a class="ratings" href="/pitch/comment/new/{{pitch.id}}"> Write a new comment</a>
+
+
+        </div>
+
+    
+    <div class="row">
+
+        <h1>Comments</h1>
+        <hr>
+
+        {% if comments %}
+            {{macro.displayComments(comments)}}
+
+        {% else%}
+            <h3 class="text-center">This pitch has no Comments </h3>
+
+            <a class="btn btn-success btn-lg text-center" href="/pitch/comment/new/{{pitch.id}}"> Write a new comment</a>
+        {% endif %}
+
+    </div>
+
+
+    </div>
+
+{% endblock %}

@@ -1,10 +1,23 @@
 {% macro displayPitches(pitches) %}
 
     {% for pitch in pitches %}
+    <a href="/current_pitch/{{pitch.id}}">
     <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 review-card">
         <h2>{{pitch.category}}</h2>
         <p>{{pitch.pitch | truncate(30)}}</p>
         <h6>{{pitch.pitch_author}}</h6>
+    </div>
+    </a>
+    {% endfor %}
+    
+{% endmacro %}
+
+{% macro displayComments(comments) %}
+
+    {% for comment in comments %}
+    <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 review-card">
+        <p>{{comment.content | truncate(30)}}</p>
+        <h6>{{comment.author}}</h6>
     </div>
     {% endfor %}
     
