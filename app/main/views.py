@@ -33,7 +33,7 @@ def pitch():
         pitch_author = form.pitch_author.data
         user_id = current_user._get_current_object().id
         # votes = Vote.query.filter_by(pitch_id=id).all()
-        new_pitch = Pitch(category=category,pitch=pitch,pitch_author=pitch_author,user_id=current_user.id)
+        new_pitch = Pitch(category=category,pitch=pitch,pitch_author=pitch_author)
         new_pitch.save_pitch()
         
 
@@ -48,26 +48,33 @@ def pitch():
 @login_required
 def current_pitch(id):
     pitch=Pitch.query.filter_by(id=id).first()
-    comments = Comment.query.filter_by(pitch_id=id).all()
+    comments = Comment.query.filter_by(id=id).all()
     return render_template('current_pitch.html',pitch=pitch,comments=comments)
 
-@main.route('/current_pitch/comment/new/<int:id>', methods = ['GET','POST'])
+@main.route('/current_pitch/comment/new/<int:id>', methods = ['POST','GET'])
 @login_required
 def comment(id):
     
     form = CommentForm()
+    user = User.query.all()
     pitch = Pitch.query.filter_by(id=id).first()
 
     if form.validate_on_submit():
+        user = User.query.all()
+        pitch = Pitch.query.filter_by(id=id).first()
+        form = CommentForm()
+
         content = form.content.data
-        new_comment = Comment(content=content, author=author,pitch_id=pitch.id, user_id=current_user.id)
+        author = form.author.data
+        user_id = current_user._get_current_object().id
+        new_comment = Comment(content=content, author=author)
         new_comment.save_comment()
 
         db.session.add(new_comment)
         db.session.commit()
         return redirect(url_for('main.current_pitch', id=pitch.id))
 
-    return render_template( 'comment.html',comment_form=form,pitch=pitch)
+    return render_template( 'comment.html',comment_form=form, pitch=pitch)
 
 
 @main.route('/user/<uname>')

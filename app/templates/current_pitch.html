@@ -1,5 +1,5 @@
 {% extends 'base.html'%}
-{% import "bootstrap/wtf.html" as wtf %}
+{% import 'macros.html' as macro %}
 
 {% block styles%}
     {{ super() }}
@@ -31,10 +31,10 @@
                 {% if comments %}
                     {{macro.displayComments(comments)}}
 
-                {% else%}
+                {% else %}
                     <h5 class="text-center">This pitch has no Comments </h5>
 
-                    <a class="btn btn-info btn-md text-center" style="background-color: #fe696d;" href="/pitch/comment/new/{{pitch.id}}"> Write a new comment</a>
+                    <a class="btn btn-info btn-md text-center" style="background-color: #fe696d;" href="/current_pitch/comment/new/{{pitch.id}}"> Write a new comment</a>
                 {% endif %}
             </div>
         </div>

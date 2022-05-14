@@ -55,12 +55,10 @@ class Pitch(db.Model):
     vote = db.relationship('Vote',backref='pitches', lazy='dynamic')
     
 
-
-    # def __init__(self,id,category,pitch,pitch_author):
-    #     self.id = id
-    #     self.category = category
-    #     self.pitch = pitch
-    #     self.pitch_author = pitch_author
+    def __init__(self,category,pitch,pitch_author):
+        self.category = category
+        self.pitch = pitch
+        self.pitch_author = pitch_author
 
     def create_pitch(self):
        db.session.add(self)
@@ -70,16 +68,6 @@ class Pitch(db.Model):
     def save_pitch(self):
         db.session.add(self)
         db.session.commit()
-
-    @classmethod
-    def clear_pitch(cls):
-        db.session.drop(self)
-        db.session.commit()
-
-    @classmethod
-    def search_pitches(cls,category):
-        pitches = Pitch.query.filter_by(category=category).all()
-        return pitches
 
     @classmethod
     def get_pitches(cls):
@@ -97,6 +85,9 @@ class Comment(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey("users.id"))
     pitch_id = db.Column(db.Integer,db.ForeignKey("pitches.id"))
 
+    def __init__(self,content,author):
+        self.content = content
+        self.author = author
 
     def save_comment(self):
         db.session.add(self)
