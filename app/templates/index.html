@@ -11,39 +11,55 @@
 
 <!-- Content index block -->
 {% block content %}
-    <div class="container" style="width: 80%; font-family:'Zen Kaku Gothic Antique', sans-serif; font-weight: 300;">
+<div 
+    class="card text-center" 
+    style="
+    background-image: url('/static/gradienta-LeG68PrXA6Y-unsplash.jpg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    margin-top: -4em;">
 
-        <div class="row justify-content-md-center text-center">
-            <div class="col-8 content title-wrapper">
-                <h1 class="my-4" style="margin-top:2rem; margin-bottom:2rem; font-family: 'Akronim', cursive; font-size: 5em;">
-                    66Seconds
-                </h1>
-                <h2 class="my-4" style=" margin-bottom: 2em; font-family: 'Zen Kaku Gothic Antique', sans-serif;">
-                    <b>66 Seconds</b> to impress someone. First of all, that's way too much time!
-                </h2>
+    <div 
+        class=" card-img-overlay" 
+        style=" 
+        margin-left:10%; 
+        margin-right:10%; 
+        width: 80%; 
+        font-family:'Zen Kaku Gothic Antique', sans-serif; 
+        font-weight: 300;">
+
+            <div class=" card-body text-center'" style="height:100vh;">
+                <div class="col-8  card-title content title-wrapper">
+                    <h1 class="" style="padding-top:1.3em; margin-bottom:.4em; font-family: 'Akronim', cursive; font-size: 7em;">
+                        66Seconds
+                    </h1>
+                    <h2 class="my-4" style=" margin-bottom: 2em; font-family: 'Zen Kaku Gothic Antique', sans-serif;">
+                        <b>66 Seconds</b> to impress someone. First of all, that's way too much time!
+                    </h2>
+                </div>
+
+                {% if current_user.is_authenticated %}
+                    <h4 style="margin-bottom: 2rem">Hello {{current_user.username}}</h4>
+                {% else %}
+                    <h4 style="margin-bottom: 2rem;">Hello stranger</h4>
+                {% endif %}
+
+                <div class="card-text" id="introduction" style="margin-bottom: 1rem; font-weight: 400;">
+                    First Impressions matter and here at 66S we get it! So instead of putting even more prssure on you,
+                    we let you <i>hide</i> behind a screen and shine like the wonderful human you are!
+                    And don't worry the sixty six seconds aren't for you, (that's for the readers). 
+                </div>
             </div>
+            <div class="container"style="width: 80%;">
+                <div class="row justify-content-md-center text-center" style="justify-content:center;">
+                    <h1 style="margin-bottom: 5%;">Pitches</h1>
 
-            {% if current_user.is_authenticated %}
-                <h4 style="margin-bottom: 2rem">Hello {{current_user.username}}</h4>
-            {% else %}
-                <h4 style="margin-bottom: 2rem;">Hello stranger</h4>
-            {% endif %}
-
-            <div class="mx-1" id="introduction" style="margin-bottom: 5%;">
-                First Impressions matter and here at 66S we get it! So instead of putting even more prssure on you,
-                we let you <i>hide</i> behind a screen and shine like the wonderful human you are!
-                And don't worry the sixty six seconds aren't for you, (that's for the readers). 
+                    <hr>
+                    <a class="btn btn-info btn-md text-center row" style="background-color: #fe696d;" href="{{url_for('main.pitch')}}"> Add your new pitch</a>
+                        {{macro.displayPitches(pitches)}}
+                </div>    
             </div>
-        </div>
-        <div class="container"style="width: 80%;">
-            <div class="row justify-content-md-center text-center" style="justify-content:center;">
-                <h1 style="margin-bottom: 5%;">Pitches</h1>
-
-                <hr>
-                <a class="btn btn-info btn-sm text-center row" href="{{url_for('main.pitch')}}"> Add your new pitch</a>
-                    {{macro.displayPitches(pitches)}}
-            </div>    
-        </div>
     </div>
-
+</div>
 {% endblock %}

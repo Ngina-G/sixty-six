@@ -1,5 +1,7 @@
-/* *{ 
-    color: aqua; 
-    margin-left: 1%; 
-    margin-right: 1%;
-} */
+body{
+    background-image: url('/static/gradienta-LeG68PrXA6Y-unsplash.jpg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-color: brown;
+}

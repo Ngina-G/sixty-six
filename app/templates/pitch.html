@@ -13,9 +13,17 @@
 
 <!-- Content block -->
 {% block content %}
-<div class="container">
+<div 
+class="container"
+style="background-image: url('/static/gradienta-LeG68PrXA6Y-unsplash.jpg');
+background-position: center;
+background-repeat: no-repeat;
+background-size: cover;
+margin-top: -4em;
+height: 100vh;
+width: 98.7vw;">
     <div>
-        <div class="col-md-4">
+        <div class="col-md-4" style="margin-top: 6em;">
         {{wtf.quick_form(pitch_form)}}
         </div>
     </div>
