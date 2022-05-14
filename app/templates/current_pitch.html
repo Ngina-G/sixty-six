@@ -16,28 +16,28 @@
     background-size: cover;
     margin-top: -4em;
     height: 100vh;
-    width: 100vw;">
-        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 pitch-details" style="margin-top: 6em;">
-            <h3>{{ pitch.pitch }}</h3>
-            <h6>{{pitch.pitch_author}}</h6>
+    width: 98.7vw;">
+
+        <div class="col" style="width:80%; margin-left: 10%; margin-right: 10%;">
+            <div class="row text-center" style="margin-top: 6em;">
+                <h3>{{ pitch.pitch }}</h3>
+                <h6 style="color: #391718;">by: {{pitch.pitch_author}}</h6>
+            </div>
+
+            <div class="row text-center">
+                <h3>Comments</h3>
+                <hr>
+
+                {% if comments %}
+                    {{macro.displayComments(comments)}}
+
+                {% else%}
+                    <h5 class="text-center">This pitch has no Comments </h5>
+
+                    <a class="btn btn-info btn-md text-center" style="background-color: #fe696d;" href="/pitch/comment/new/{{pitch.id}}"> Write a new comment</a>
+                {% endif %}
+            </div>
         </div>
-
-    
-        <div class="">
-            <h3>Comments</h3>
-            <hr>
-
-            {% if comments %}
-                {{macro.displayComments(comments)}}
-
-            {% else%}
-                <h5 class="text-center">This pitch has no Comments </h5>
-
-                <a class="btn btn-info btn-md text-center" style="background-color: #fe696d;" href="/pitch/comment/new/{{pitch.id}}"> Write a new comment</a>
-            {% endif %}
-
-        </div>
-
 
     </div>
 

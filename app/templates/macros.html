@@ -1,11 +1,11 @@
 {% macro displayPitches(pitches) %}
 
     {% for pitch in pitches %}
-    <div>
+    <div style="border: 1px solid pink;">
         <h5>{{pitch.category}}</h5>
         <h3>{{pitch.pitch | truncate(30)}}</h3>
-        <h6>{{pitch.pitch_author}}</h6>
-        <a class="btn btn-outline-dark btn-sm" href="/current_pitch/{{pitch.id}}"></a>
+        <h6>by: {{pitch.pitch_author}}</h6>
+        <a class="btn btn-outline-dark btn-sm" href="/current_pitch/{{pitch.id}}"><strong>more</strong></a>
     </div>
     {% endfor %}
 {% endmacro %}
