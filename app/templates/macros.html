@@ -14,9 +14,8 @@
 
     {% for comment in comments %}
     <div>
-        <p>{{comment.content | truncate(30)}}</p>
+        <h4>{{comment.content | truncate(30)}}</h4>
         <h6>{{comment.author}}</h6>
     </div>
     {% endfor %}
-    
 {% endmacro %}

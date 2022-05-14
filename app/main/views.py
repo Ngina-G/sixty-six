@@ -75,7 +75,7 @@ def comment(id):
 def current_pitch(id):
     pitch=Pitch.query.filter_by(id = id).first()
     comments = Comment.query.filter_by(id = id).all()
-    return render_template('current_pitch.html',pitch=pitch,comments=comments, id = pitch.id)
+    return render_template('current_pitch.html',pitch=pitch,comments=comments, id=pitch.id)
 
 
 @main.route('/user/<uname>')

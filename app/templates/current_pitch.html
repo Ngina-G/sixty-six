@@ -20,17 +20,14 @@
 
         <div class="col" style="width:80%; margin-left: 10%; margin-right: 10%;">
             <div class="row text-center" style="margin-top: 6em;">
-                <h3>{{ pitch.pitch }}</h3>
+                <h2>{{ pitch.pitch }}</h2>
                 <h6 style="color: #391718;">by: {{pitch.pitch_author}}</h6>
                 <br>
             </div>
 
             <div class="row text-center">
-                <h3>Comments</h3>
+                <h4>Comments</h4>
                 <hr>
-
-                <div>                    {{macro.displayComments(comments)}}
-                </div>
 
                 {% if comments %}
 
