@@ -44,13 +44,6 @@ def pitch():
         
     return render_template( 'pitch.html',pitch_form=form)
 
-@main.route('/current_pitch/<int:id>')
-@login_required
-def current_pitch(id):
-    pitch=Pitch.query.filter_by(id=id).first()
-    comments = Comment.query.filter_by(id=id).all()
-    return render_template('current_pitch.html',pitch=pitch,comments=comments)
-
 @main.route('/current_pitch/comment/new/<int:id>', methods = ['POST','GET'])
 @login_required
 def comment(id):
@@ -75,6 +68,14 @@ def comment(id):
         return redirect(url_for('main.current_pitch', id=pitch.id))
 
     return render_template( 'comment.html',comment_form=form, pitch=pitch)
+
+
+@main.route('/current_pitch/<int:id>')
+@login_required
+def current_pitch(id):
+    pitch=Pitch.query.filter_by(id = id).first()
+    comments = Comment.query.filter_by(id = id).all()
+    return render_template('current_pitch.html',pitch=pitch,comments=comments, id = pitch.id)
 
 
 @main.route('/user/<uname>')
