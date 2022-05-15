@@ -36,13 +36,13 @@ class ProdConfig(Config):
 
 
 
-# class Testconfig(Config):
-#     """Test configuration child class
+class Testconfig(Config):
+    """Test configuration child class
 
-#     Args:
-#         Config (The parent configuration class): with General test configuration settings
-#     """
-#     SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://postgres:Postgres@localhost/sixtysixseconds_test'
+    Args:
+        Config (The parent configuration class): with General test configuration settings
+    """
+    SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://postgres:Postgres@localhost/sixtysixseconds_test'
 
 
 class DevConfig(Config):
@@ -60,5 +60,5 @@ class DevConfig(Config):
 config_options = {
     'development':DevConfig,
     'production':ProdConfig,
-    # 'test':Testconfig
+    'test':Testconfig
 }
