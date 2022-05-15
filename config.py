@@ -43,6 +43,7 @@ class Testconfig(Config):
         Config (The parent configuration class): with General test configuration settings
     """
     SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://postgres:Postgres@localhost/sixtysixseconds_test'
+    SQLALCHEMY_DATABASE_URI = os.environ.get("DATABASE_URL").replace("://", "ql://", 1)
 
 
 class DevConfig(Config):
