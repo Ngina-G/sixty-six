@@ -7,7 +7,8 @@ class Config:
     # SECRET_KEY = os.environ.get('SECRET_KEY')
     SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://postgres:Postgres@localhost:5432/sixtysixsec'
     SQLALCHEMY_TRACK_MODIFICATIONS = False
-    UPLOADED_PHOTOS_DEST ='app/static/photos'
+    # UPLOADED_PHOTOS_DEST ='app/static/photos'
+    UPLOADED_PHOTOS_DEST ='static/img'
 
 #  email configurations
     MAIL_SERVER = 'smtp.googlemail.com'
@@ -29,7 +30,7 @@ class ProdConfig(Config):
         Config (The parent configuration class): with General production configuration settings
     """
     pass
-SQLALCHEMY_DATABASE_URI = os.environ.get("DATABASE_URL")
+    SQLALCHEMY_DATABASE_URI = os.environ.get("DATABASE_URL")
 
 class Testconfig(Config):
     """Test configuration child class
